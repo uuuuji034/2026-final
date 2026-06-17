@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ride on Rythm</title>
+	<style>
+		html{font-family: 'inter'; scroll-behavior: smooth; color: #F9FFFD}
+		nav{position: fixed; width: 100%; z-index: 100; padding-top: 40px;}
+		body,h1,h2,p,ul,li{margin:0; padding:0;}
+		.contents{width: 600px; margin:auto;}
+		ul{width: 600px;}
+		li{list-style-type: none;}
+		.flex{display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo{position: absolute; left: 30px; top: 50%; transform: translateY(-50%);}
+		.menu a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem;}
+		.logo a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF,0 0 20px #FFFFFF; font-weight: 600; font-size: 2.5rem;}
+		.game{background-image: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0.4)) ,url(https://i1.ruliweb.com/ori/20/10/16/1752fc97a72497b59.gif);background-size: cover; background-position: center; height: 100vh; display: flex; justify-content: center; align-items: center;}
+		.start-btn {width: 400px; display: block; transition: transform 0.1s ease-out; animation: btnPulse 0.88s ease-out infinite;}
+		.start-btn-container {position: relative; display: inline-block;
+			cursor: pointer;}
+		.start-btn-container:hover .start-btn {transform: scale(1.08) !important; animation-play-state: paused;}
+		.start-btn-container:active .start-btn {transform: scale(0.95) !important;}
+		.effect-ring {position: absolute;top: 0; left: 0; width: 100%; height: 100%; border: 4px solid #ffa6ef; border-radius: 100px; box-shadow: 0 0 20px #99F8FA; opacity: 0; pointer-events: none; transform: scale(1); animation: autoPulse 0.88s ease-out infinite;}
+		.start-btn-container.clicked .effect-ring {animation: gameBurst 0.5s ease-out;}
+		@keyframes autoPulse {0% {transform: scale(1); opacity: 1; border-width: 6px;} 100% {transform: scale(1.6); opacity: 0; border-width: 1px;}}
+		@keyframes btnPulse {0% {transform: scale(1); } 15% {transform: scale(1.05);} 100% {transform: scale(1);}}
+	</style>
+</head>
+<body>
+<nav>
+	<div class="flex">
+		<div class="logo">
+			<a href="index.html">Ride on Rythm</a> </div>
+		<ul class="menu flex">
+			<li><a href="about.html">ABOUT</a></li>
+			<li><a href="online.html">ONLINE</a></li>
+			<li><a href="arcade.html">ARCADE</a></li>
+		</ul>
+	</div>
+</nav>
+	<section class="game">
+		<a href="about.html" id="startLink" style="text-decoration: none;">
+			<div class="start-btn-container">
+				<img src="./img/start.png" class="start-btn">
+				<div class="effect-ring"></div>
+			</div>
+		</a>
+	</section>
+	<script>
+		const startLink = document.getElementById('startLink');
+		const startContainer = startLink.querySelector('.start-btn-container');
+		startLink.addEventListener('click', function(e) {e.preventDefault();
+		const targetUrl = this.getAttribute('href');
+		startContainer.classList.add('clicked');
+		setTimeout(function() {startContainer.classList.remove('clicked');
+		window.location.href = targetUrl;}, 450);});
+	</script>
+</body>
+</html>

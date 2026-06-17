@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>20101019 우지윤 - Mobile Rhythm</title>
+	<style>
+		html{font-family: 'inter', sans-serif; scroll-behavior: smooth; color: #F9FFFD}
+		nav{position: fixed; width: 100%; z-index: 100; padding-top: 40px; padding-bottom: 100px; background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%);}
+		body,h1,h2,p,ul,li{margin:0; padding:0;}
+		body{background-color: #040E20;}
+		.contents{width: 1100px; margin:auto;}
+		ul{width: 800px;}
+		li{list-style-type: none;}
+		.flex{display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo{position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		.menu a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active {opacity: 1 !important;}
+		.menu a:hover {opacity: 1;}
+		.logo a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF,0 0 20px #FFFFFF; font-weight: bold; font-size: 3rem;}
+
+		.page-header {padding-top: 200px; text-align: center; margin-bottom: 80px;}
+		.page-title {font-size: 4rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; margin-bottom: 48px;}
+
+		.back-btn {
+			position: fixed;
+			top: 40px;
+			left: 40px;
+			width: 63px;
+			height: 60px;
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #99F8FA;
+			border: 3px solid #99F8FA;
+			text-decoration: none;
+			font-size: 1.8rem;
+			z-index: 1000;
+			background: rgba(0, 0, 0, 0.4);
+			backdrop-filter: blur(5px);
+			transition: all 0.3s ease;}
+		.back-btn:hover {
+			background-color: #99F8FA;
+			color: #040E20;
+			box-shadow: 0 0 10px #99F8FA;
+			transform: translateX(-5px);}
+
+		/* --- [새로 추가된 게임 소개 섹션 스타일] --- */
+		.game-showcase {height: 100vh; display: flex; align-items: center; background-size: cover; background-position: center; background-attachment: fixed; position: relative;}
+		.game-showcase::before {content: '';
+			position: absolute;
+			top: 0; left: 0; width: 100%; height: 100%;
+			background: rgba(0, 0, 0, 0.3);
+			z-index: 1;}
+		.game-showcase .contents {position: relative; z-index: 2;}
+
+		/* 반투명 블랙 정보 박스 */
+		.info-box {background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(10px); padding: 50px 40px; max-width: 550px; border-left: 6px solid #FFDE59; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);}
+		.info-title {font-size: 2.8rem; font-weight: 900; color: #FFFFFF; text-shadow: 0 0 15px rgba(255, 222, 89, 0.8), 0 0 30px rgba(255, 222, 89, 0.5); margin-bottom: 25px; line-height: 1.2;}
+		.info-desc {font-size: 1.15rem; color: #e5e7eb; line-height: 1.8; word-break: keep-all;}
+		
+		.theme-pink{border-left-color: #ff63e1;}
+		.theme-pink .info-title{text-shadow: 0 0 15px rgba(255, 99, 225, 0.8), 0 0 30px rgba(255, 99, 225, 0.5);}
+		.theme-blue{border-left-color: #2c3fff;}
+		.theme-blue .info-title{text-shadow: 0 0 15px rgba(44, 63, 255, 0.8), 0 0 30px rgba(44, 63, 255, 0.5);}
+		.theme-pp{border-left-color: #b75eff;}
+		.theme-pp .info-title{text-shadow: 0 0 15px rgba(183, 94, 255, 0.8), 0 0 30px rgba(183, 94, 255, 0.5);}
+		.theme-sky{border-left-color: #99F8FA;}
+		.theme-sky .info-title{text-shadow: 0 0 15px rgba(153, 248, 250, 0.8), 0 0 30px rgba(153, 248, 250, 0.5);}
+		.theme-red{border-left-color: #ff0000;}
+		.theme-red .info-title{text-shadow: 0 0 15px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.5);}
+
+		footer{color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr;}
+    	.footer-col{display: flex; flex-direction: column; gap: 12px;}
+    	.footer-label{font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
+    	.footer-title{font-size: 15px; font-weight: 700; line-height: 1.5; color: #ffffff;}
+    	.footer-sub{font-size: 12px; color: #888; letter-spacing: 0.04rem;}
+    	.footer-contact{font-size: 13px; color: #ccc; line-height: 2;}
+    	.footer-copy{font-size: 11px; color: #555; margin-top: 8px; letter-spacing: 0.04rem;}
+	</style>
+</head>
+
+<body>
+<nav>
+	<ul class="contents menu flex">
+		<li><a href="about.html">ABOUT</a></li>
+		<li><a href="online.html" class="active">ONLINE</a></li>
+		<li><a href="arcade.html">ARCADE</a></li>
+	</ul>
+</nav>
+
+<a href="online.html" class="back-btn" style="padding-bottom: 3px;">⬅</a>
+
+<section class="game-showcase" style="background-image: url(./img/heaven.png);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box">
+			<h2 class="info-title">리듬천국 시리즈</h2>
+			<p class="info-desc">
+				닌텐도와 TNX에서 개발하는 리듬 게임 시리즈.<br>
+				공식 장르명은 ‘리듬감 게임♪’<br>
+				기본적인 게임 방식은 게임에서 나오는 BGM의 리듬에 맞춰 버튼을 누르거나 터치, 튕기기하는 방식으로, 각 리듬 게임별로 단순하면서도 독특한 진행 방식을 가지고 있다. <br>
+				기존의 리듬 게임들은 악보에 맞추어서 주어진 소리를 연주하는 방식이라면, 리듬 천국 시리즈는 플레이어가 리듬을 타는 것을 가장 중요하게 여기며, 다른 리듬게임이 적잖게 요구하는 화면을 보고 읽는 능력이나 신체적 능력은 크게 중요하지 않다. <br>
+				곡도 짧고 한 곡당 버튼을 누르는 횟수와 버튼의 종류도 다른 리듬 게임들에 비하면 아주 적지만 그 덕분에 기존 리듬 게임들과는 차별화된 대중적인 인기를 얻을 수 있었다.
+			</p>
+		</div>
+	</div>
+</section>
+<section class="game-showcase" style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAyMjExMTBfOCAg/MDAxNjY4MDQwMTg1Mzc1.kXX1RE6A2X3A7K1XDeqAe-1nILuOeDm5nB5y8BpF_Rkg.tlsXdn7O48XN1ei4X-J8U3--FFy3ZusD-d86kRSo430g.GIF.ideungam/3.gif?type=w800);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box theme-blue" style="margin-left: auto;">
+			<h2 class="info-title">Just Dance</h2>
+			<p class="info-desc">
+				유비소프트 파리에서 제작하고 있는 댄스형 리듬 게임. <br>
+				Wii, Wii U, 닌텐도 스위치, PS3, PS4, PS5, PC, XBOX360, Xbox One, Xbox Series X, Google Stadia로 발매되었으며,<br>
+				노래 별로 다른 독특한 스테이지와 화려한 댄서들이 특징이다.<br>
+				유비소프트에서 두 번째로 잘 팔린 게임 프랜차이즈로, <br>
+				국내에서는 주로 라이트 유저로 팬층이 형성되어 있지만, 해외에서는 팬층이 두텁게 형성되어 있으며, 국내에서도 닌텐도 e샵 판매 순위에서 자주 상위권을 꿰차고 있을 정도로 나름 잘 팔리는 시리즈이다.
+			</p>
+		</div>
+	</div>
+</section>
+<section class="game-showcase" style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAyMzA2MDFfNTIg/MDAxNjg1NjEzNjM0NjYw.pbjW9-p6Mey9LN33OH3VbLUyKBGUn4pGcL4KnmLWR6Yg.DxXVhRs6BWCtvmWy0_pPIMUmcM2Z15LDdtMNgy_Ymakg.GIF.zeimer/%EB%B9%84%ED%8A%B8%EC%84%B8%EC%9D%B4%EB%B2%841.gif?type=w800);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box theme-red">
+			<h2 class="info-title">Beat Saber</h2>
+			<p class="info-desc">
+				비트세이버는 체코의 Hyperbolic Magnetism에서 제작하고 유통하는 VR 전용 리듬 게임으로, Beat Saber이란 이름답게 두 손에 라이트세이버를 들고 리듬에 맞춰 노트를 자르면 되는 간단한 게임이다.<br>
+				출시 뒤 10곡이라는 적은 통상곡 숫자에 불구하고 스팀 평가란에 98%의 압도적인 추천을 받을 정도로 VR게임들 가운데 가장 평가가 좋은 축에 속한다. <br>
+				VR게임의 치명적인 단점인 이동의 불편함은 없애고 VR기기와 컨트롤러를 적극적으로 활용해 VR 유저들의 답답함을 어느 정도 해소해 준 것이 크게 작용한 듯 하다.
+			</p>
+		</div>
+	</div>
+</section>
+<footer class="contents">
+    <div class="footer-col">
+      <div class="footer-label">Project</div>
+      <div class="footer-title">Ride on Rythm</div>
+      <div class="footer-sub">웹 퍼블리싱 기말 프로젝트</div>
+      <div class="footer-sub">2025. 06.</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-label">Contact</div>
+      <div class="footer-contact">
+        Github: https://github.com/uuuuji034<br>
+        uuuuji034@seoultech.ac.kr<br>
+        Seoul, Republic of Korea
+      </div>
+      <div class="footer-copy">
+        20101019 우지윤<br>
+        © 2026 Ride on Rythm. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

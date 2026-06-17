@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>online</title>
+	<style>
+		html{font-family: 'inter'; scroll-behavior: smooth; color: #F9FFFD}
+		nav{position: fixed; width: 100%; z-index: 100; padding-top: 40px; padding-bottom: 100px; background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%);}
+		body,h1,h2,p,ul,li{margin:0; padding:0;}
+		body{background-color: #040E20;}
+		.contents{width: 1100px; margin:auto;}
+		ul{width: 800px;}
+		li{list-style-type: none;}
+		.flex{display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo{position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		.menu a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active, 
+		.menu a:hover {opacity: 1;}
+		.logo a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF,0 0 20px #FFFFFF; font-weight: 600; font-size: 2.5rem;}
+
+		.game-screen {height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 100px; box-sizing: border-box;}
+		.device-selector {display: flex; gap: 120px; margin-bottom: 80px; position: relative;}
+		.device {width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; opacity: 0.3; transition: all 0.3s ease; filter: grayscale(100%);}
+		.device.selected {opacity: 1; transform: scale(1.15) translateY(-10px); filter: grayscale(0%); filter: drop-shadow(0 0 20px rgba(153, 248, 250, 0.6));}
+		.device img, .device svg { width: 100%; height: 100%; object-fit: contain;}
+
+		.cursor-marker {position: absolute; bottom: -60px; left: 0; width: 180px; text-align: center; transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1); animation: cursorBounce 0.5s alternate infinite;}
+		.cursor-marker img {width: 30px; height: auto;}
+
+		@keyframes cursorBounce {0% {padding-top: 0px;} 100% {padding-top: 15px;}}
+
+		.instruction-text {font-size: 1.3rem; font-weight: 500; color: #99F8FA; margin-bottom: 40px; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; letter-spacing: 1px; opacity: 60%}
+
+		.rhythm-bar {width: 800px; height: 120px; position: relative; display: flex; justify-content: center; align-items: center; border-top: 2px solid rgba(255, 255, 255, 0.1); border-bottom: 2px solid rgba(255, 255, 255, 0.1); overflow: hidden;}
+		.heart-icon {position: absolute; z-index: 5; width: 50px; height: 50px; animation: heartbeat 0.8s infinite;}
+
+		@keyframes heartbeat {0% {transform: scale(1);} 15% { transform: scale(1.3); filter: drop-shadow(0 0 15px red);} 30% {transform: scale(1);} 100% {transform: scale(1);}}
+		.beat-line {position: absolute; width: 4px; height: 80px; background-color: #99F8FA; box-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; top: 50%; transform: translateY(-50%); border-radius: 2px;}
+		.line-left {animation: moveLeftLine 1.6s linear infinite;}
+		.line-left.delay {animation-delay: 0.8s;}
+		.line-right {animation: moveRightLine 1.6s linear infinite;}
+		.line-right.delay {animation-delay: 0.8s;}
+
+		@keyframes moveLeftLine {
+			0% {left: 0%; opacity: 0;}
+			10% {opacity: 1;}
+			50% {left: 50%; opacity: 1;}
+			51% {left: 50%; opacity: 0;}
+			100% {left: 50%; opacity: 0;}}
+
+		@keyframes moveRightLine {
+			0% {right: 0%; opacity: 0;}
+			10% {opacity: 1;}
+			50% {right: 50%; opacity: 1;}
+			51% {right: 50%; opacity: 0;}
+			100% {right: 50%; opacity: 0;}}
+
+		.judgment-text {position: absolute; top: 20px; font-size: 2rem;
+			font-weight: bold; opacity: 0; z-index: 10; transition: opacity 0.2s, transform 0.2s; transform: translateY(10px);}
+		.judgment-text.show {opacity: 1; transform: translateY(-20px);}
+		.perfect {color: #00FF00; text-shadow: 0 0 15px #00FF00;}
+		.miss {color: #FF0000; text-shadow: 0 0 15px #FF0000;}
+
+		@keyframes shake {
+			0% {transform: translateX(0);}
+			25% {transform: translateX(-10px);}
+			50% {transform: translateX(10px);}
+			75% {transform: translateX(-10px);}
+			100% {transform: translateX(0);}}
+		.shake-screen {animation: shake 0.3s;}
+	</style>
+</head>
+<body>
+<nav>
+	<div class="flex">
+		<div class="logo">
+			<a href="index.html">Ride on Rythm</a> </div>
+	<ul class="contents menu flex">
+		<li><a href="about.html">ABOUT</a></li>
+		<li><a href="online.html" class="active">ONLINE</a></li>
+		<li><a href="arcade.html">ARCADE</a></li>
+	</ul>
+</nav>
+	<main class="game-screen">
+	<div class="device-selector">
+
+		<!-- 1. PC -->
+		<div class="device selected" id="dev-pc">
+			<img src="./img/pc.png" alt="PC">
+		</div>
+
+		<!-- 2. 모바일 -->
+		<div class="device" id="dev-mobile">
+			<img src="./img/mobile.png" alt="Mobile">
+		</div>
+
+		<!-- 3. 콘솔 (게임패드) -->
+		<div class="device" id="dev-console">
+			<img src="./img/console.png" alt="Console">
+		</div>
+
+		<!-- 커서(손가락) -->
+		<div class="cursor-marker">
+			<img src="./img/cursor.png">
+		</div>
+	</div>
+
+	<!-- 안내 문구 -->
+	<p class="instruction-text">방향키를 눌러 선택하고 박자에 맞춰 엔터!</p>
+
+	<!-- 리듬 게임 UI -->
+	<div class="rhythm-bar">
+
+		<!-- 판정 결과 텍스트 -->
+		<div class="judgment-text" id="judgment">PERFECT!</div>
+
+		<!-- 왼쪽에서 오는 선 2개 (엇박자 세팅) -->
+		<div class="beat-line line-left"></div>
+		<div class="beat-line line-left delay"></div>
+		
+		<!-- 하트 아이콘 -->
+		<img src="./img/heart.png" class="heart-icon">
+
+		<!-- 오른쪽에서 오는 선 2개 -->
+		<div class="beat-line line-right"></div>
+		<div class="beat-line line-right delay"></div>
+	</div>
+</main>
+	</section>
+<script>
+	const devices = document.querySelectorAll('.device');
+	const cursor = document.querySelector('.cursor-marker');
+	const judgmentText = document.getElementById('judgment');
+	
+	let currentIndex = 0; // 0: PC, 1: Mobile, 2: Console
+	const pages = ['pc.html', 'mobile.html', 'console.html']; 
+
+	// 타이밍 변수
+	const BEAT_INTERVAL = 800; // 0.8초마다 선이 하트에 닿음
+	const TOLERANCE = 150; // 오차 허용 범위 (ms)
+	let startTime = Date.now();
+
+	// 방향키 이동 로직
+	function updateSelection() {
+		devices.forEach((dev, index) => {
+			if (index === currentIndex) {
+				dev.classList.add('selected');
+			} else {
+				dev.classList.remove('selected');
+			}
+		});
+
+		// 커서 위치 이동 (180px 크기 + 120px 간격 = 300px씩 점프)
+		cursor.style.transform = `translateX(${currentIndex * 300}px)`;
+	}
+
+	// 키보드 입력 감지
+	window.addEventListener('keydown', (e) => {
+		// 방향키를 누를 때 스크롤이 움직이는 것 방지
+		if(["ArrowLeft","ArrowRight","Enter"].indexOf(e.key) > -1) {
+			e.preventDefault();
+		}
+
+		if (e.key === 'ArrowLeft') {
+			currentIndex = Math.max(0, currentIndex - 1);
+			updateSelection();
+		} 
+		else if (e.key === 'ArrowRight') {
+			currentIndex = Math.min(2, currentIndex + 1);
+			updateSelection();
+		} 
+		else if (e.key === 'Enter') {
+			checkRhythm();
+		}
+	});
+
+	// 리듬 판정(Hit/Miss) 로직
+	function checkRhythm() {
+		const now = Date.now();
+		const phase = (now - startTime) % BEAT_INTERVAL; 
+		
+		// 800ms 주기에 가깝게 쳤는지 확인
+		const isPerfect = (phase < TOLERANCE) || (phase > BEAT_INTERVAL - TOLERANCE);
+
+		// 이전에 띄웠던 글씨 효과 리셋
+		judgmentText.className = 'judgment-text';
+		
+		setTimeout(() => {
+			if (isPerfect) {
+				// 타이밍 맞춤!
+				judgmentText.innerText = "PERFECT!";
+				judgmentText.classList.add('show', 'perfect');
+				
+				// 성공하면 0.6초 뒤에 선택된 기기의 페이지로 이동
+				setTimeout(() => {
+					window.location.href = pages[currentIndex];
+				}, 600);
+			} else {
+				// 타이밍 틀림
+				judgmentText.innerText = "MISS!";
+				judgmentText.classList.add('show', 'miss');
+				
+				// 틀리면 화면이 덜컹거림
+				document.body.classList.add('shake-screen');
+				setTimeout(() => {
+					document.body.classList.remove('shake-screen');
+				}, 300);
+			}
+		}, 10);
+	}
+</script>
+</body>
+</html>

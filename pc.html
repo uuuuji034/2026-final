@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>20101019 우지윤 - PC Rhythm</title>
+	<style>
+		html{font-family: 'inter', sans-serif; scroll-behavior: smooth; color: #F9FFFD}
+		nav{position: fixed; width: 100%; z-index: 100; padding-top: 40px; padding-bottom: 100px; background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%);}
+		body,h1,h2,p,ul,li{margin:0; padding:0;}
+		body{background-color: #040E20;}
+		.contents{width: 1100px; margin:auto;}
+		ul{width: 800px;}
+		li{list-style-type: none;}
+		.flex{display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo{position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		.menu a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active {opacity: 1 !important;}
+		.menu a:hover {opacity: 1;}
+		.logo a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF,0 0 20px #FFFFFF; font-weight: bold; font-size: 3rem;}
+
+		.page-header {padding-top: 200px; text-align: center; margin-bottom: 80px;}
+		.page-title {font-size: 4rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; margin-bottom: 48px;}
+
+		.back-btn {
+			position: fixed;
+			top: 40px;
+			left: 40px;
+			width: 63px;
+			height: 60px;
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #99F8FA;
+			border: 3px solid #99F8FA;
+			text-decoration: none;
+			font-size: 1.8rem;
+			z-index: 1000;
+			background: rgba(0, 0, 0, 0.4);
+			backdrop-filter: blur(5px);
+			transition: all 0.3s ease;}
+		.back-btn:hover {
+			background-color: #99F8FA;
+			color: #040E20;
+			box-shadow: 0 0 10px #99F8FA;
+			transform: translateX(-5px);}
+
+		/* --- [새로 추가된 게임 소개 섹션 스타일] --- */
+		.game-showcase {height: 100vh; display: flex; align-items: center; background-size: cover; background-position: center; background-attachment: fixed; position: relative;}
+		.game-showcase::before {content: '';
+			position: absolute;
+			top: 0; left: 0; width: 100%; height: 100%;
+			background: rgba(0, 0, 0, 0.3);
+			z-index: 1;}
+		.game-showcase .contents {position: relative; z-index: 2;}
+
+		/* 반투명 블랙 정보 박스 */
+		.info-box {background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(10px); padding: 50px 40px; max-width: 550px; border-left: 6px solid #FFDE59; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);}
+		.info-title {font-size: 2.8rem; font-weight: 900; color: #FFFFFF; text-shadow: 0 0 15px rgba(255, 222, 89, 0.8), 0 0 30px rgba(255, 222, 89, 0.5); margin-bottom: 25px; line-height: 1.2;}
+		.info-desc {font-size: 1.15rem; color: #e5e7eb; line-height: 1.8; word-break: keep-all;}
+		
+		.theme-pink{border-left-color: #ff63e1;}
+		.theme-pink .info-title{text-shadow: 0 0 15px rgba(255, 99, 225, 0.8), 0 0 30px rgba(255, 99, 225, 0.5);}
+
+		.theme-blue{border-left-color: #2c3fff;}
+		.theme-blue .info-title{text-shadow: 0 0 15px rgba(44, 63, 255, 0.8), 0 0 30px rgba(44, 63, 255, 0.5);}
+
+		.theme-pp{border-left-color: #b75eff;}
+		.theme-pp .info-title{text-shadow: 0 0 15px rgba(183, 94, 255, 0.8), 0 0 30px rgba(183, 94, 255, 0.5);}
+
+		footer{color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr;}
+    	.footer-col{display: flex; flex-direction: column; gap: 12px;}
+    	.footer-label{font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
+    	.footer-title{font-size: 15px; font-weight: 700; line-height: 1.5; color: #ffffff;}
+    	.footer-sub{font-size: 12px; color: #888; letter-spacing: 0.04rem;}
+    	.footer-contact{font-size: 13px; color: #ccc; line-height: 2;}
+    	.footer-copy{font-size: 11px; color: #555; margin-top: 8px; letter-spacing: 0.04rem;}
+	</style>
+</head>
+
+<body>
+<nav>
+	<ul class="contents menu flex">
+		<li><a href="about.html">ABOUT</a></li>
+		<li><a href="online.html" class="active">ONLINE</a></li>
+		<li><a href="arcade.html">ARCADE</a></li>
+	</ul>
+</nav>
+
+<a href="online.html" class="back-btn" style="padding-bottom: 3px;">⬅</a>
+
+<section class="game-showcase" style="background-image: url(./img/djmaxmain.jpg);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box">
+			<h2 class="info-title">DJMAX RESPECT V</h2>
+			<p class="info-desc">
+				DJMAX RESPECT V는<br>
+				한국의 로키 스튜디오에서 개발하고<br>
+				네오위즈에서 퍼블리싱하는<br>
+				DJMAX 시리즈의 PC 리듬 게임으로,<br>
+				2017년 PS4 플랫폼으로 출시된<br>
+				DJMAX RESPECT에 추가 콘텐츠를<br>
+				포함시킨 이식작이다. <br>
+				DJMAX RESPECT와 함께 역대 DJMAX 시리즈를 집대성한 총집판이자 역대 DJMAX 시리즈 중 최고 흥행작으로 자리매김한 작품이다. 
+			</p>
+		</div>
+	</div>
+</section>
+<section class="game-showcase" style="background-image: url(https://i2.kknews.cc/ld3KjzHGAo3N0HVVIurbYFO1eDEv0ae7sA/0.jpg);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box theme-pink" style="margin-left: auto;">
+			<h2 class="info-title">Muse Dash</h2>
+			<p class="info-desc">
+				뮤즈 대쉬는 중국의 PeroPeroGames에서 개발하는 횡스크롤 액션 리듬 게임으로, 일반적인 건반 리듬 게임과 달리 오른쪽에서 왼쪽으로 다가오는 적을 맞추고 장애물을 피해야 한다.<br>
+				플레이 방식의 경우 태고의 달인과 유사하며 연출은 라디오해머 시리즈를 연상시킨다. <br>
+				레인이 두 개 뿐이라 입문하기에는 쉬운 편이나, 난이도가 높아질수록 적과 장애물이 함께 나오는 특성상 패턴이 읽기 힘들어지고 노트 밀도가 높아지는 등 도전적인 요소로 탈바꿈한다. <br> 
+				그래픽은 전반적으로 귀여운 편이다. 등장 인물은 전부 미소녀이고, 노트는 일반적인 리듬게임에서 볼 수 있는 단순한 도형이 아닌 캐주얼한 RPG 게임의 적처럼 생겼다. 
+			</p>
+		</div>
+	</div>
+</section>
+<section class="game-showcase" style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAyMDEyMTRfMTM3/MDAxNjA3OTI5MzExNDE3.KY7pW5zWByloJQK_ownuExgQ8uaTwlcx4eSq3VMrdbgg.CptQ6DNnCsq5vleJ-BDR6jXWJh_LX7tfjux7iH1Ac3Ug.GIF.zzminuda/%EB%B6%88%EC%96%BC%EC%B6%A4_%EC%9B%80%EC%A7%A42.gif?type=w800);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box theme-blue">
+			<h2 class="info-title">A Dance of Fire and Ice</h2>
+			<p class="info-desc">
+				A Dance of Fire and Ice는 말레이시아의 7th Beat Games에서 개발한 원터치 리듬 게임이다.<br>
+				한국 유저들 사이에서는 제목이 너무 길어서 주로 '얼불춤'으로 불리며, 해외에서는 약칭인 ADOFAI로 부른다. 한국에서도 간혹 이 약칭에서 음차해 아도파이나 어도파이로 부르는 사람도 있다. <br>
+				48시간 내로 게임을 만드는 대회인 루덤 데어(Ludum dare 30)의 일환으로 만들어진 게임으로, 개발사의 또 다른 게임인 Rhythm Doctor처럼 사이트에서 데모 버전을 공개한 후 4년 만에 스팀에서 정식버전으로 출시되었다.
+			</p>
+		</div>
+	</div>
+</section>
+<section class="game-showcase" style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAyNDAxMTlfMTU0/MDAxNzA1NjY2ODkzNjg0.Q1uSDZdbuknJqrL6BfqvhOQPPpHYrehZ9Bx2kOkmNvkg.kYzFbBuV7wO8Ru_YRa0rG5kSk6quz4kt1m5D3FZuFfgg.GIF.kaiba1004/Bits__Bops_%EB%B9%84%EC%B8%A0%EC%95%A4%EB%B0%A5%EC%8A%A4_%ED%94%8C%EB%A0%88%EC%9D%B4_2.gif?type=w800);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box theme-pp">
+			<h2 class="info-title ">Bits&Bops</h2>
+			<p class="info-desc">
+				비츠&밥스는 호주의 Tempo Lab Games에서 개발한 리듬 게임으로 게임플레이 자체는 리듬 천국 시리즈를 모방했다고 봐도 무방한데,<br>
+				 화면 속의 상황을 보고 박자에 맞춰 버튼을 누르는 콜 앤 리스폰스 방식이다. 버튼은 2가지만 쓰며 리듬 천국과 마찬가지로 박자를 입력한 타이밍에 따라 플레이 중인 미니게임에서 다양한 반응이 나타나며, 시야를 방해하는 연출이나 여러 돌발적인 연출이 나오기도 한다. <br>
+				 각 세트마다 리듬 천국 시리즈의 리믹스에 해당하는 믹스테이프(Mixtape) 스테이지도 존재한다.
+			</p>
+		</div>
+	</div>
+</section>
+<footer class="contents">
+    <div class="footer-col">
+      <div class="footer-label">Project</div>
+      <div class="footer-title">Ride on Rythm</div>
+      <div class="footer-sub">웹 퍼블리싱 기말 프로젝트</div>
+      <div class="footer-sub">2025. 06.</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-label">Contact</div>
+      <div class="footer-contact">
+        Github: https://github.com/uuuuji034<br>
+        uuuuji034@seoultech.ac.kr<br>
+        Seoul, Republic of Korea
+      </div>
+      <div class="footer-copy">
+        20101019 우지윤<br>
+        © 2026 Ride on Rythm. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

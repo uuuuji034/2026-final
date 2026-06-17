@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>20101019 우지윤 - Mobile Rhythm</title>
+	<style>
+		html{font-family: 'inter', sans-serif; scroll-behavior: smooth; color: #F9FFFD}
+		nav{position: fixed; width: 100%; z-index: 100; padding-top: 40px; padding-bottom: 100px; background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%);}
+		body,h1,h2,p,ul,li{margin:0; padding:0;}
+		body{background-color: #040E20;}
+		.contents{width: 1100px; margin:auto;}
+		ul{width: 800px;}
+		li{list-style-type: none;}
+		.flex{display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo{position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		.menu a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active {opacity: 1 !important;}
+		.menu a:hover {opacity: 1;}
+		.logo a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF,0 0 20px #FFFFFF; font-weight: bold; font-size: 3rem;}
+
+		.page-header {padding-top: 200px; text-align: center; margin-bottom: 80px;}
+		.page-title {font-size: 4rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; margin-bottom: 48px;}
+
+		.back-btn {
+			position: fixed;
+			top: 40px;
+			left: 40px;
+			width: 63px;
+			height: 60px;
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #99F8FA;
+			border: 3px solid #99F8FA;
+			text-decoration: none;
+			font-size: 1.8rem;
+			z-index: 1000;
+			background: rgba(0, 0, 0, 0.4);
+			backdrop-filter: blur(5px);
+			transition: all 0.3s ease;}
+		.back-btn:hover {
+			background-color: #99F8FA;
+			color: #040E20;
+			box-shadow: 0 0 10px #99F8FA;
+			transform: translateX(-5px);}
+
+		/* --- [새로 추가된 게임 소개 섹션 스타일] --- */
+		.game-showcase {height: 100vh; display: flex; align-items: center; background-size: cover; background-position: center; background-attachment: fixed; position: relative;}
+		.game-showcase::before {content: '';
+			position: absolute;
+			top: 0; left: 0; width: 100%; height: 100%;
+			background: rgba(0, 0, 0, 0.3);
+			z-index: 1;}
+		.game-showcase .contents {position: relative; z-index: 2;}
+
+		/* 반투명 블랙 정보 박스 */
+		.info-box {background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(10px); padding: 50px 40px; max-width: 550px; border-left: 6px solid #FFDE59; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);}
+		.info-title {font-size: 2.8rem; font-weight: 900; color: #FFFFFF; text-shadow: 0 0 15px rgba(255, 222, 89, 0.8), 0 0 30px rgba(255, 222, 89, 0.5); margin-bottom: 25px; line-height: 1.2;}
+		.info-desc {font-size: 1.15rem; color: #e5e7eb; line-height: 1.8; word-break: keep-all;}
+		
+		.theme-pink{border-left-color: #ff63e1;}
+		.theme-pink .info-title{text-shadow: 0 0 15px rgba(255, 99, 225, 0.8), 0 0 30px rgba(255, 99, 225, 0.5);}
+		.theme-blue{border-left-color: #2c3fff;}
+		.theme-blue .info-title{text-shadow: 0 0 15px rgba(44, 63, 255, 0.8), 0 0 30px rgba(44, 63, 255, 0.5);}
+		.theme-pp{border-left-color: #b75eff;}
+		.theme-pp .info-title{text-shadow: 0 0 15px rgba(183, 94, 255, 0.8), 0 0 30px rgba(183, 94, 255, 0.5);}
+		.theme-sky{border-left-color: #99F8FA;}
+		.theme-sky .info-title{text-shadow: 0 0 15px rgba(153, 248, 250, 0.8), 0 0 30px rgba(153, 248, 250, 0.5);}
+
+		footer{color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr;}
+    	.footer-col{display: flex; flex-direction: column; gap: 12px;}
+    	.footer-label{font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
+    	.footer-title{font-size: 15px; font-weight: 700; line-height: 1.5; color: #ffffff;}
+    	.footer-sub{font-size: 12px; color: #888; letter-spacing: 0.04rem;}
+    	.footer-contact{font-size: 13px; color: #ccc; line-height: 2;}
+    	.footer-copy{font-size: 11px; color: #555; margin-top: 8px; letter-spacing: 0.04rem;}
+	</style>
+</head>
+
+<body>
+<nav>
+	<ul class="contents menu flex">
+		<li><a href="about.html">ABOUT</a></li>
+		<li><a href="online.html" class="active">ONLINE</a></li>
+		<li><a href="arcade.html">ARCADE</a></li>
+	</ul>
+</nav>
+
+<a href="online.html" class="back-btn" style="padding-bottom: 3px;">⬅</a>
+
+<section class="game-showcase" style="background-image: url(https://dcimg1.dcinside.com/viewimage.php?id=2cafd327e0d3&no=24b0d769e1d32ca73fe981fa11d028310a3eab44b7e01cf4f191b2ce288e666f1bd4185d3176e50bf1e04bf13ef52da663c8ad0acbdf07b1b3fefd9c74f5eddf6710ae83a7127e0b4089fb339224816b7d18716b9ec64878e4c901e8821aeb9609);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box theme-pp">
+			<h2 class="info-title">Arcaea</h2>
+			<p class="info-desc">
+				아르케아는 영국의 게임 회사 lowiro가 제작한 3D 건반형 리듬 게임으로, 3D로 출현하는 노트로 인해 기존의 2D 건반형 노트 게임과 차별점을 느낄 수 있다. <br>
+				또한 '아크'라는 노트로 매번 새로운 패턴을 경험할 수 있어, 업데이트로 수록되는 악곡의 채보를 새롭게 경험해 볼 수 있다.
+
+			</p>
+		</div>
+	</div>
+</section>
+<section class="game-showcase" style="background-image: url(./img/deemo.webp);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box" style="margin-left: auto;">
+			<h2 class="info-title">DEEMO</h2>
+			<p class="info-desc">
+				디모는 대만의 게임 회사인 Rayark사에서 2013년 3월에 최초 공개한 건반형 리듬 게임이다. <br>
+				DEEMO의 제작사인 Rayark는 이미 또 다른 리듬 게임인 Cytus를 통해 전 세계적인 인기를 끌어모은 바 있으며, <br>
+				디모 또한 짜임새 있는 스토리와 연출, 완성도 높은 게임 플레이에 높은 점수를 주고 있다. 특히 인벤은 잘해야 4점을 넘기 어려운 리뷰 점수에서 만점인 5점을 주며 극찬했다.
+			</p>
+		</div>
+	</div>
+</section>
+<section class="game-showcase" style="background-image: url(https://mblogthumb-phinf.pstatic.net/MjAyMjA2MDRfMjI1/MDAxNjU0MjY5Mjk0MzQ5.VZGvmUOr_88et5569Xk50A4rl0OkcNPlvA049LrAn-Eg.sa4-K4RzrKk-6ISQR3fIZr-UFECthOHDbCJ0myCgWEMg.GIF.1024kby/image8.gif?type=w800);">
+	<div style="width: 100%; position: relative; z-index: 2;">
+		<div class="info-box theme-sky">
+			<h2 class="info-title">프로젝트 세카이 컬러풀 스테이지! feat.하츠네 미쿠</h2>
+			<p class="info-desc">
+				프로젝트 세카이는 CHUNITHM, 프로젝트 디바 시리즈, 프로젝트 미라이 시리즈를 제작한 세가게임즈와 뱅드림! 걸즈 밴드 파티!를 제작한 Craft Egg의 자회사 Colorful Palette, 크립톤 퓨처 미디어가 제작하는 게임 프로젝트다. <br>
+				주요 등장인물들이 스마트폰 속 Untitled라는 제목의 곡을 재생하는 것을 통해 세카이라 불리는 아공간을 넘나들며, 그곳에서 4인조 유닛을 결성하고 미쿠 등 버추얼 싱어들과 함께 노래하면서 자신의 진정한 마음을 찾아간다는 설정이다.
+			</p>
+		</div>
+	</div>
+</section>
+<footer class="contents">
+    <div class="footer-col">
+      <div class="footer-label">Project</div>
+      <div class="footer-title">Ride on Rythm</div>
+      <div class="footer-sub">웹 퍼블리싱 기말 프로젝트</div>
+      <div class="footer-sub">2025. 06.</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-label">Contact</div>
+      <div class="footer-contact">
+        Github: https://github.com/uuuuji034<br>
+        uuuuji034@seoultech.ac.kr<br>
+        Seoul, Republic of Korea
+      </div>
+      <div class="footer-copy">
+        20101019 우지윤<br>
+        © 2026 Ride on Rythm. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

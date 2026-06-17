@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>about</title>
+	<style>
+		html{font-family: 'inter'; scroll-behavior: smooth; color: #F9FFFD}
+		nav{position: fixed; width: 100%; z-index: 100; padding-top: 40px; padding-bottom: 100px; background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%);}
+		body,h1,h2,p,ul,li{margin:0; padding:0;}
+		body{background-color: #040E20;}
+		.contents{width: 1100px; margin:auto;}
+		ul{width: 800px;}
+		li{list-style-type: none;}
+		.flex{display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo{position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		.menu a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active, 
+		.menu a:hover {opacity: 1;}
+		.logo a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF,0 0 20px #FFFFFF; font-weight: 600; font-size: 2.5rem;}
+		.building{background-image: url(./img/building.jpg); background-size: cover; background-position: fixed; height: 100vh; display: flex; align-items: center;}
+		.layout{display: flex; align-items: center; gap: 180px;}
+		.title{font-size: 8rem; line-height: 1.2; font-weight: bold; letter-spacing: 3px;color: #FFFFFF; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; white-space: nowrap;}
+		.inst{font-size: 1.2rem; color: #FFFFFF; line-height: 1.9; font-weight: normal;}
+
+		.subtitle{font-size: 4rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 4px #99F8FA,0 0 10px #99F8FA; white-space: nowrap; margin-bottom: 40px;}
+		.history-gallery {display: flex; flex-direction: column; gap: 40px;}
+		.history-card {position: relative; width: 100%; height: 300px; overflow: hidden; cursor: pointer; box-shadow: 0 0 15px rgba(153, 248, 250, 0.2);}
+		.history-card img {width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+		.history-info {position: absolute;top: 0; left: 0;width: 100%;height: 100%;background: rgba(4, 14, 32, 0.85); color: #fff;display: flex;flex-direction: column;justify-content: center;align-items: center;padding: 30px;box-sizing: border-box; text-align: center;opacity: 0;transition: opacity 0.4s ease;}
+		.history-info h3 {font-size: 2rem; color: #FFFFFF;margin: 15px;}
+		.history-info p {font-size: 1rem; line-height: 1.6; color: #d1d5db; word-break: keep-all;}
+		.history-card:hover img {transform: scale(1.1);}
+		.history-card:hover .history-info {opacity: 1;}
+
+		.split-container {position: relative; width: 100%; height: 1000px; overflow: hidden;}
+		.split-link {position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; text-decoration: none; overflow: hidden; box-sizing: border-box;}
+		.split-left {clip-path: polygon(0 0, 65% 0, 35% 100%, 0 100%); justify-content: center; padding-right: 50%; z-index: 2}
+		.split-right {clip-path: polygon(64.9% 0, 100% 0, 100% 100%, 34.9% 100%); justify-content: center; padding-left: 50%; z-index: 1;}
+		.split-bg {position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; filter: brightness(0.3); transition: transform 0.5s ease, filter 0.5s ease; z-index: -1;}
+		.split-left .split-bg {background-image: url('./img/djmax.jpg');}
+		.split-right .split-bg {background-image: url('./img/arcade.jpg');}
+		.split-link:hover .split-bg {transform: scale(1.1); filter: brightness(1);}
+		.split-text {font-size: 5rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; transition: transform 0.3s ease;}
+		.split-link:hover .split-text {transform: scale(1.1);}
+
+		footer{color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr;}
+    	.footer-col{display: flex; flex-direction: column; gap: 12px;}
+    	.footer-label{font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
+    	.footer-title{font-size: 15px; font-weight: 700; line-height: 1.5; color: #ffffff;}
+    	.footer-sub{font-size: 12px; color: #888; letter-spacing: 0.04rem;}
+    	.footer-contact{font-size: 13px; color: #ccc; line-height: 2;}
+    	.footer-copy{font-size: 11px; color: #555; margin-top: 8px; letter-spacing: 0.04em;}
+	</style>
+
+</head>
+<body>
+<nav>
+	<div class="flex">
+		<div class="logo">
+			<a href="index.html">Ride on Rythm</a> </div>
+	<ul class="contents menu flex">
+		<li><a href="about.html" class="active">ABOUT</a></li>
+		<li><a href="online.html">ONLINE</a></li>
+		<li><a href="arcade.html">ARCADE</a></li>
+	</ul>
+</nav>
+	<section class="building">
+		<div class="contents layout">
+			<h1 class="title">리듬<br>게임<br>이란?</h1>
+			<p class="inst">
+				플레이어가 리듬이나 음악에 맞춰서 조작하거나 동작을 취해야 하거나<br>게임 진행에서 음악이나 리듬이 주 요소가 되는 게임 장르이다.<br>체감형 게임의 일종으로 분류한다.
+			</p>
+		</div>
+	</section>
+
+	<section class="contents" style="padding: 150px 0">
+		<h2 class="subtitle" style="padding-bottom: 40px;">리듬게임의 역사</h2>
+		<div class="history-gallery">
+			<div class="history-card">
+				<img src="./img/parappa.webp">
+				<div class="history-info">
+					<h3>1996년: 나나온샤의 〈파라파 더 래퍼〉</h3>
+					<p>'음악 게임'이라는 장르를 처음으로 명시한 게임이다. 특정한 버튼을 정확한 타이밍에 맞게 누르는 것으로 연주를 할 수 있으며 얼마나 잘 연주했는지에 따라 최종 결과가 달라지는, 흔히 리듬 게임 하면 생각나는 대부분의 구성 요소를 갖추고 있었다.</p>
+				</div>
+			</div>
+			<div class="history-card">
+				<img src="./img/beatmania.jpg">
+				<div class="history-info">
+					<h3>1997년: 코나미의 〈Beatmania〉</h3>
+					<p>리듬 게임 장르 자체가 본격적으로 대중적인 인기를 얻게 된 계기가 된 게임이다. 이에 탄력을 받은 코나미는 BEMANI라는 브랜드를 걸고 〈팝픈뮤직〉, 〈댄스 댄스 레볼루션〉을 내놓았으며, 특히 댄스 댄스 레볼루션이 선풍적인 인기를 끌면서 아케이드를 중심으로 리듬 게임의 최전성기를 맞이하게 된다.</p>
+				</div>
+			</div>
+			<div class="history-card">
+				<img src="./img/rythmheaven.jpg">
+				<div class="history-info">
+					<h3>2000년대: 콘솔&PC 온라인 게임 시장의 발달</h3>
+					<p>2000년대 들어 아케이드 산업이 조금씩 쇠퇴하고, 가정용 게임기의 성능이 충분히 좋아지다 보니 콘솔에서 독자적인 리듬 게임 시리즈가 만들어졌었다. 휴대용 콘솔로는 〈응원단 시리즈〉, 〈리듬 천국 시리즈〉 등이 나왔으며, PC 온라인 게임으로는 〈오투잼〉, 〈DJMAX 온라인〉, 〈알투비트〉, 〈이지투온〉 등이 나왔다.</p>
+				</div>
+			</div>
+			<div class="history-card">
+				<img src="./img/tapsonic.jpg">
+				<div class="history-info">
+					<h3>2011년: 네오위즈의 〈TAPSONIC〉</h3>
+					<p>2010년 스마트폰이 대중화되어 스마트폰용 리듬 게임이 나오기 시작했다. 피처폰은 성능의 한계로 리듬 게임을 하기 매우 부적합한 환경이었지만, 스마트폰은 터치스크린이라는 입력 특성과 전반적인 하드웨어 성능 향상, 좋은 휴대성 덕분에  어디든지 들고 가서 즐길 수 있었기 때문이었다. 2011년 네오위즈가 모바일 오리지널 리듬 게임인 TAPSONIC을 출시하면서 큰 인기를 끌었고, 지금도 다양한 회사에서 꾸준히 출시하고 있다.</p>
+				</div>
+			</div>
+			<div class="history-card">
+				<img src="./img/beatsaber.jpg">
+				<div class="history-info">
+					<h3>2010년대 이후: VR 기기의 도입&다양한 시도</h3>
+					<p>2010년대 중후반에는 VR용 게임이 나오기 시작한다. 아직 태동기지만 비트 세이버가 엄청난 성공을 거두며 VR계의 대표 리듬 게임으로 인식되고 있다. 또한 이 시기부터는 새로운 플레이 방식을 도입하거나 다른 장르와 융합하는 등 다양한 시도가 이루어졌다. 대표적으로 리듬 제세동으로 환자를 치료하는 〈Rhythm Doctor〉, 로그라이크 요소를 결합한 〈Crypt of the NecroDancer〉, 음악에 맞춰 날아오는 탄막을 피하는 〈Just Shapes & Beats〉와 〈Project Arrhythmia〉 등이 있으며, ‘리듬에 맞춰 행동한다’는 개념을 게임 전반에 녹여내며 호평을 받았다.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contents" style="padding-bottom: 150px;">
+		<div class="split-container">
+			<a href="online.html" class="split-link split-left">
+				<div class="split-bg"></div>
+				<div class="split-text">ONLINE</div>
+			</a>
+			<a href="arcade.html" class="split-link split-right">
+				<div class="split-bg"></div>
+				<div class="split-text">ARCADE</div>
+			</a>
+		</div>
+	</section>
+
+	<footer class="contents">
+    <div class="footer-col">
+      <div class="footer-label">Project</div>
+      <div class="footer-title">Ride on Rythm</div>
+      <div class="footer-sub">웹 퍼블리싱 기말 프로젝트</div>
+      <div class="footer-sub">2025. 06.</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-label">Contact</div>
+      <div class="footer-contact">
+        Github: https://github.com/uuuuji034<br>
+        uuuuji034@seoultech.ac.kr<br>
+        Seoul, Republic of Korea
+      </div>
+      <div class="footer-copy">
+        20101019 우지윤<br>
+        © 2026 Ride on Rythm. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
