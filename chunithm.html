@@ -43,11 +43,6 @@
 		.video-tooltip::before {content: ''; position: absolute; top: 50%; left: -12px; transform: translateY(-50%); border-width: 12px 12px 12px 0; border-style: solid; border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;}
 		.video-wrapper:hover .video-tooltip {opacity: 1; visibility: visible; right: -260px;}
 		
-		/* 영상 우측 팁 배지 */
-		.tip-badge {position: absolute; top: 20px; right: 20px; background-color: rgba(4, 14, 32, 0.85); color: #FFDE59; padding: 10px 18px; border-radius: 30px; font-weight: 800; font-size: 1.1rem; cursor: pointer; z-index: 21; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 222, 89, 0.3); border: 2px solid #FFDE59;}
-		.tip-badge:hover {background-color: #FFDE59; color: #040E20;}
-		.tip-badge:hover + .video-tooltip {opacity: 1; visibility: visible; right: -260px;}
-		
 		footer {color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr; position: relative; z-index: 1;}
 		.footer-col {display: flex; flex-direction: column; gap: 12px;}
 		.footer-label {font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
@@ -83,7 +78,6 @@
 	<div class="video-wrapper">
 		<iframe src="https://www.youtube-nocookie.com/embed/8KWN6BDuIdA?si=BfQFE8gmkDXzUU3k&amp;start=14" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 		
-		<div class="tip-badge">💡POINT</div>
 		<div class="video-tooltip">영상을 보면 알 수 있듯이 공중에도 판정이 있어 슬라이더만 누르는 것이 아닌 공중 액션도 해야 한다!</div>
 	</div>
 
