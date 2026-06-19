@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>20101019 우지윤 - Taiko no Tatsujin</title>
+	<style>
+		html {font-family: 'inter', sans-serif; scroll-behavior: smooth; color: #F9FFFD;}
+		nav {position: fixed; top: 0; left: 0; width: 100%; z-index: 999; padding-top: 30px; padding-bottom: 80px; background-image: linear-gradient(to bottom, rgba(4,14,32,1) 0%, rgba(4,14,32,0) 100%);}
+		body, h1, h2, p, ul, li {margin: 0; padding: 0;}
+		body {background-color: #040E20; overflow-x: hidden;}
+
+		.bg-fixed {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url('./img/taiko_tb.jpg'); background-size: cover; background-position: center; filter: blur(8px); transform: scale(1.05); z-index: -2;}
+		.bg-overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(4, 14, 32, 0.75); z-index: -1;}
+		.contents {width: 1100px; margin: auto; position: relative; z-index: 1;}
+		ul {width: 800px;}
+		li {list-style-type: none;}
+		.flex {display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo {position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		.menu a {display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active {opacity: 1 !important;}
+		.menu a:hover {opacity: 1;}
+		.logo a {display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF, 0 0 20px #FFFFFF; font-weight: bold; font-size: 3rem;}
+
+		.nav-arrow {position: fixed; top: 50%; transform: translateY(-50%); font-size: 4rem; color: rgba(255, 255, 255, 0.6); text-decoration: none; z-index: 1000; transition: color 0.3s ease, text-shadow 0.3s ease; padding: 20px;}
+		.nav-arrow:hover {color: #ffffff; text-shadow: 0 0 20px #99F8FA;}
+		.nav-prev {left: 30px;}
+		.nav-next {right: 30px;}
+
+		.drum-section {height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 10;}
+		
+		/* [수정] 아래쪽 여백(margin-bottom)을 없애고 대신 북 쪽에 위쪽 여백을 줘서 북을 아래로 훅 내립니다. */
+		.title-container {width: 100%; height: 160px; border-top: 2px solid #fff; border-bottom: 2px solid #fff; display: flex; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.4); margin-bottom: 0px; overflow: hidden;}
+		.assembled-title {width: 450px; font-size: 5rem; font-weight: 900; color: #fff; text-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; letter-spacing: 5px; height: 80px; display: flex; justify-content: flex-start; align-items: center;}
+		
+		/* [수정] 통통 튀는 모션 제거 + 급브레이크 밟듯 기울어지다 멈추는(skew) 효과 추가 */
+		@keyframes noteFly {
+			0% { transform: translateX(100vw) skewX(-25deg); opacity: 0; }
+			80% { transform: translateX(-10px) skewX(10deg); opacity: 1; }
+			100% { transform: translateX(0) skewX(0); opacity: 1; }
+		}
+		.flying-letter {display: inline-block; animation: noteFly 0.4s ease-out forwards; transform-origin: bottom center;}
+
+		/* [수정] 북 크기 440px로 축소 및 margin-top: 80px을 주어 화면 아래쪽으로 밀어냄 */
+		.drum-wrapper {position: relative; width: 440px; height: 440px; border-radius: 50%; background-color: #E0E0E0; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px rgba(0,0,0,0.5); transition: box-shadow 0.1s; margin-top: 80px;}
+		.drum-wrapper.hit-glow {box-shadow: 0 0 50px #99F8FA, 0 0 80px #99F8FA;}
+		
+		/* 외부 북 - 440px에 맞춰 border-radius 수정 */
+		.drum-outer-left {position: absolute; top: 0; left: 0; width: 50%; height: 100%; border-radius: 220px 0 0 220px; background-color: transparent; transition: background-color 0.1s; z-index: 1;}
+		.drum-outer-right {position: absolute; top: 0; right: 0; width: 50%; height: 100%; border-radius: 0 220px 220px 0; background-color: transparent; transition: background-color 0.1s; z-index: 1;}
+		
+		/* [수정] 내부 북 크기 대폭 축소 (340px) -> 상대적으로 바깥 테두리(외곽)가 50px 두께로 도톰해짐! */
+		.drum-inner {position: absolute; width: 340px; height: 340px; border-radius: 50%; background-color: #BDBDBD; z-index: 2; display: flex; overflow: hidden;}
+		.drum-inner-left {width: 50%; height: 100%; background-color: transparent; transition: background-color 0.1s;}
+		.drum-inner-right {width: 50%; height: 100%; background-color: transparent; transition: background-color 0.1s;}
+		
+		/* [수정] D, F, J, K 버튼들 위치 재배치 (테두리가 두꺼워진 만큼 안쪽/바깥쪽 밸런스 조정) */
+		.key-hint {position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; border-radius: 12px; border: 2px solid #fff; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1.2rem; color: #fff; background-color: rgba(255, 255, 255, 0.2); transition: all 0.1s; z-index: 5;}
+		.key-d {left: -22px;}
+		.key-f {left: 100px; z-index: 6;}
+		.key-j {right: 100px; z-index: 6;}
+		.key-k {right: -22px;}
+		
+		.hit-out-left {background-color: #51EBFD;}
+		.hit-out-right {background-color: #51EBFD;}
+		.hit-in-left {background-color: #FF5050;}
+		.hit-in-right {background-color: #FF5050;}
+		.hit-key {background-color: #fff; color: #A8A8A8;}
+		
+		.info-section {padding-top: 150px; padding-bottom: 50px;}
+		.game-desc {font-size: 1.15rem; line-height: 1.9; color: #d1d5db; margin-bottom: 40px; word-break: keep-all;}
+		.img-wrapper {width: 100%; margin-bottom: 40px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5); background-color: #fff;}
+		.img-wrapper img {width: 100%; display: block;}
+		.video-wrapper {position: relative; width: 100%; padding-bottom: 56.25%; background-color: #d1d5db; margin-bottom: 40px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5);}
+		.video-wrapper iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+
+		.split-container {position: relative; width: 100%; height: 400px; margin-bottom: 40px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5); display: flex;}
+		.split-side {position: absolute; top: 0; height: 100%; width: 100%; background-size: cover; background-position: center center; display: flex; justify-content: center; align-items: center; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); filter: brightness(0.5); cursor: pointer;}
+		.split-text {font-size: 2.5rem; font-weight: 800; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.8); transition: opacity 0.3s; z-index: 5; pointer-events: none;}
+		
+		.split-container:hover .split-text {opacity: 0;}
+		
+		.split-left {left: 0; clip-path: polygon(0 0, 55% 0, 45% 100%, 0 100%); z-index: 2;}
+		.split-right {right: 0; clip-path: polygon(54.9% 0, 100% 0, 100% 100%, 44.9% 100%); z-index: 1;}
+		
+		.split-container:hover .split-left:hover {clip-path: polygon(0 0, 85% 0, 75% 100%, 0 100%); filter: brightness(1); z-index: 3;}
+		.split-container:hover .split-left:hover ~ .split-right {clip-path: polygon(84.9% 0, 100% 0, 100% 100%, 74.9% 100%); filter: brightness(0.3);}
+		.split-container:hover .split-right:hover {clip-path: polygon(25% 0, 100% 0, 100% 100%, 15% 100%); filter: brightness(1); z-index: 3;}
+		.split-container:has(.split-right:hover) .split-left {clip-path: polygon(0 0, 25.1% 0, 15.1% 100%, 0 100%); filter: brightness(0.3);}
+		
+		footer {color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr; position: relative; z-index: 1;}
+		.footer-col {display: flex; flex-direction: column; gap: 12px;}
+		.footer-label {font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
+		.footer-title {font-size: 15px; font-weight: 700; line-height: 1.5; color: #ffffff;}
+		.footer-sub {font-size: 12px; color: #888; letter-spacing: 0.04rem;}
+		.footer-contact {font-size: 13px; color: #ccc; line-height: 2;}
+		.footer-copy {font-size: 11px; color: #555; margin-top: 8px; letter-spacing: 0.04em;}
+	</style>
+</head>
+
+<body>
+
+<div class="bg-fixed"></div>
+<div class="bg-overlay"></div>
+
+<nav>
+	<ul class="contents menu flex">
+		<li><a href="about.html">ABOUT</a></li>
+		<li><a href="online.html">ONLINE</a></li>
+		<li><a href="arcade.html" class="active">ARCADE</a></li>
+	</ul>
+</nav>
+
+<a href="chunithm.html" class="nav-arrow nav-prev">‹</a>
+
+<section class="drum-section">
+	<div class="title-container">
+		<div class="assembled-title" id="title-display"></div>
+	</div>
+
+	<div class="drum-wrapper" id="drum-wrapper">
+		<!-- 외부 타격 영역 -->
+		<div class="drum-outer-left" id="drum-d"></div>
+		<div class="drum-outer-right" id="drum-k"></div>
+		
+		<!-- 내부 타격 영역 (클래스명 오타 수정) -->
+		<div class="drum-inner">
+			<div class="drum-inner-left" id="drum-f"></div>
+			<div class="drum-inner-right" id="drum-j"></div>
+		</div>
+
+		<!-- 키 매핑 힌트 -->
+		<div class="key-hint key-d" id="key-d">D</div>
+		<div class="key-hint key-f" id="key-f">F</div>
+		<div class="key-hint key-j" id="key-j">J</div>
+		<div class="key-hint key-k" id="key-k">K</div>
+	</div>
+</section>
+
+<section id="info-section" class="contents info-section">
+	<p class="game-desc">
+		2001년 2월 21일에 반다이 남코에서 발매한 북을 이용한 체감 리듬 게임.<br>
+		일본 전통 요소와 세련되고 귀여운 그래픽, 아기자기한 아트 스타일을 융합하여 독특한 세계관을 구축하였다.
+	</p>
+
+	<div class="img-wrapper">
+		<img src="./img/taiko_cha.jpg" alt="Taiko Art">
+	</div>
+
+	<p class="game-desc">
+		기본적으로, 이 게임은 북채를 사용하는 '체감형' 리듬 게임이다.<br>
+		보통은 나무 북채에 빨간색과 파란색의 고무를 씌운 굵직한 남코제 북채가 비치되어 있고,<br>
+		좀 오래된 곳이나 유동인구가 많은 곳에 가면 오락실에서 자체 제작한 북채를 놓은 곳도 있으며, 고인물의 경우 개인용 북채를 들고다니며 플레이하기도 한다.
+	</p>
+
+	<div class="split-container">
+		<div class="split-side split-left" style="background-image: url(./img/basicbacci.jpg);">
+			<div class="split-text" style="padding-right: 50%;">기본 북채</div>
+		</div>
+		<div class="split-side split-right" style="background-image: url(./img/mybacci.jpg);">
+			<div class="split-text" style="padding-left: 50%;">개인용 북채</div>
+		</div>
+	</div>
+
+	<p class="game-desc">
+		플레이 방법의 경우, 주로 쿵(안쪽)과 딱(바깥)이라는 두 가지 노트만을 사용하기 때문에 리듬 게임 중에서도 플레이 방법 자체는 굉장히 단순한 편이다.<br>
+		기본 메커니즘이 단순하다 보니 곡의 난이도 또한 쉽게 만들려면 굉장히 쉽게 만들 수 있고,<br>
+		반대로 어렵게 만들려면 진정 사람이 연주할 수 있는 것인지 의심이 가는 난이도로 만드는 것도 가능하다.
+	</p>
+
+	<div class="video-wrapper">
+		<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cpe-mM8UE5I?si=P9P8_g7uUorhxgcI&amp;start=14" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	</div>
+
+	<p class="game-desc">
+		아기자기한 디자인과 간단한 플레이 방법, 인기 판권곡 수록 덕분에 비교적 접근성이 높은 리듬 게임이라 지나가던 일반인들에게도 인기가 꽤 있는 리듬게임이다.<br>
+		이런 인지도 덕에 '태고의 달인'이라는 게임 이름까지는 잘 몰라도 '오락실에서 북치는 게임' 하면 많이들 알아듣는다.
+	</p>
+</section>
+
+<script>
+	const targetLetters = ['태', '고', '의', '달', '인']; 
+	const titleDisplay = document.getElementById('title-display');
+	let currentIndex = 0;
+	let isCompleted = false;
+
+	window.addEventListener('keydown', (e) => {
+		const key = e.key.toLowerCase();
+		if (['d', 'f', 'j', 'k'].includes(key)) {
+			hitDrum(key);
+		}
+	});
+
+	function hitDrum(key) {
+		const drumPart = document.getElementById(`drum-${key}`);
+		const keyHint = document.getElementById(`key-${key}`);
+		const drumWrapper = document.getElementById('drum-wrapper');
+		
+		if (key === 'd') drumPart.classList.add('hit-out-left');
+		if (key === 'f') drumPart.classList.add('hit-in-left');
+		if (key === 'j') drumPart.classList.add('hit-in-right');
+		if (key === 'k') drumPart.classList.add('hit-out-right');
+		
+		keyHint.classList.add('hit-key');
+		drumWrapper.classList.add('hit-glow'); 
+
+		setTimeout(() => {
+			drumPart.className = drumPart.className.replace(/hit-[a-z-]+/g, '').trim();
+			keyHint.classList.remove('hit-key');
+			drumWrapper.classList.remove('hit-glow');
+		}, 150);
+
+		if (!isCompleted && currentIndex < targetLetters.length) {
+			let newText = `<span class="flying-letter">${targetLetters[currentIndex]}</span>`;
+			// '의' 다음에는 띄어쓰기를 더 추가
+			if (currentIndex === 2) {
+				newText += '&nbsp;&nbsp;'; 
+			}
+			
+			titleDisplay.insertAdjacentHTML('beforeend', newText);
+			currentIndex++;
+
+			if (currentIndex === targetLetters.length) {
+				isCompleted = true;
+			}
+		} else if (isCompleted) {
+			// 완성된 후 키를 치면 스크롤되도록 딜레이 제거
+			document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+		}
+	}
+</script>
+
+<footer class="contents">
+	<div class="footer-col">
+		<div class="footer-label">Project</div>
+		<div class="footer-title">Ride on Rythm</div>
+		<div class="footer-sub">웹 퍼블리싱 기말 프로젝트</div>
+		<div class="footer-sub">2025. 06.</div>
+	</div>
+	<div class="footer-col">
+		<div class="footer-label">Contact</div>
+		<div class="footer-contact">
+			Github: https://github.com/uuuuji034<br>
+			uuuuji034@seoultech.ac.kr<br>
+			Seoul, Republic of Korea
+		</div>
+		<div class="footer-copy">
+			20101019 우지윤<br>
+			© 2026 Ride on Rythm. All rights reserved.
+		</div>
+	</div>
+</footer>
+</body>
+</html>
