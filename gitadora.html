@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>20101019 우지윤 - Gitadora</title>
+	<style>
+		html {font-family: 'inter', sans-serif; scroll-behavior: smooth; color: #F9FFFD;}
+		nav {position: fixed; top: 0; left: 0; width: 100%; z-index: 999; padding-top: 30px; padding-bottom: 80px; background-image: linear-gradient(to bottom, rgba(4,14,32,1) 0%, rgba(4,14,32,0) 100%);}
+		body, h1, h2, p, ul, li {margin: 0; padding: 0;}
+		body {background-color: #040E20; overflow-x: hidden;}
+		.contents {width: 1100px; margin: auto;}
+		ul {width: 800px;}
+		li {list-style-type: none;}
+		.flex {display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo {position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		.menu a {display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active {opacity: 1 !important;}
+		.menu a:hover {opacity: 1;}
+		.logo a {display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF, 0 0 20px #FFFFFF; font-weight: bold; font-size: 3rem;}
+
+		.nav-arrow {position: fixed; top: 50%; transform: translateY(-50%); font-size: 4rem; color: rgba(255, 255, 255, 0.3); text-decoration: none; z-index: 1000; transition: color 0.3s ease, text-shadow 0.3s ease; padding: 20px;}
+		.nav-arrow:hover {color: #FFFFFF; text-shadow: 0 0 20px #99F8FA;}
+		.nav-prev {left: 30px;}
+		.nav-next {right: 30px;}
+
+		.info-section {padding-top: 150px; padding-bottom: 50px;}
+
+		.game-title {font-size: 5rem; font-weight: 600; text-align: center; color: #FFFFFF; text-shadow: 0 0 8px #99F8FA, 0 0 15px #99F8FA; margin-bottom: 70px; letter-spacing: 2px;}
+		.game-desc {font-size: 1.15rem; line-height: 1.9; color: #d1d5db; margin-bottom: 40px; word-break: keep-all;}
+
+		.img-wrapper {width: 100%; margin-bottom: 10px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5); background-color: #fff;}
+		.img-wrapper img {width: 100%; display: block;}
+		.img-caption {text-align: center; font-size: 0.9rem; color: #888; margin-bottom: 40px;}
+
+		.video-wrapper {position: relative; width: 100%; padding-bottom: 56.25%; background-color: #d1d5db; margin-bottom: 40px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5);}
+		.video-wrapper iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+
+		footer {color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr;}
+		.footer-col {display: flex; flex-direction: column; gap: 12px;}
+		.footer-label {font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
+		.footer-title {font-size: 15px; font-weight: 700; line-height: 1.5; color: #ffffff;}
+		.footer-sub {font-size: 12px; color: #888; letter-spacing: 0.04rem;}
+		.footer-contact {font-size: 13px; color: #ccc; line-height: 2;}
+		.footer-copy {font-size: 11px; color: #555; margin-top: 8px; letter-spacing: 0.04em;}
+	</style>
+</head>
+<body>
+<nav>
+	<ul class="contents menu flex">
+		<li><a href="about.html">ABOUT</a></li>
+		<li><a href="online.html">ONLINE</a></li>
+		<li><a href="arcade.html" class="active">ARCADE</a></li>
+	</ul>
+</nav>
+
+<!-- 좌우 고정 네비게이션 화살표 -->
+<a href="pump.html" class="nav-arrow nav-prev">‹</a>
+<a href="chunithm.html" class="nav-arrow nav-next">›</a>
+
+<section id="info-section" class="contents info-section">
+	<h1 class="game-title">Gitadora</h1>
+	
+	<p class="game-desc">
+		BEMANI 시리즈의 일원으로, 기타프릭스와 드럼매니아를 묶어부르는 명칭이다.<br>
+		기타프릭스와 드럼매니아는 서로 대단히 밀접한 관계를 맺고 있기 때문에, 이 두 게임을 묶어서 하나의 시리즈로 취급하는 경우가 아주 많다.
+	</p>
+
+	<div class="img-wrapper">
+		<img src="./img/gitadorasr.jpg" alt="Gitadora Machines">
+	</div>
+	<p class="img-caption">각각 좌측은 기타프릭스, 우측은 드럼매니아 기체.</p>
+
+	<p class="game-desc">
+		기타 3/드럼 2까지는 극도 컨셉도 각자 다른 별개의 시리즈였으나, 기타 4/드럼 3부터 곡과 컨셉을 모두 공유하게 되었다.<br>
+		GITADORA 시리즈에서는 아예 '기타도라'라는 한 시리즈 아래에 '기타도라 드럼매니아', '기타도라 기타프릭스'가 있는 형태로 완전히 통합되었다.
+	</p>
+
+	<div class="video-wrapper">
+		<iframe src="https://www.youtube-nocookie.com/embed/4rYiH8rw8zA?si=rges5feUW_j4F6pk&amp;start=11" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	</div>
+
+	<div class="video-wrapper">
+		<iframe src="https://www.youtube-nocookie.com/embed/TNBT-Mam8Bk?si=0delC0erxfyyXeu6&amp;start=14" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	</div>
+
+	<p class="game-desc">
+		클래식(~th)/V 시리즈는 2011년 발매된 V8로 종료되었고, 이후는 XG 시리즈로 계승되었으며, 2013년 GITADORA 시리즈로 한 번 리부트하여 오늘에 이르고 있다. 참고로 코나미에서는 비트매니아 시리즈와는 달리 공식적으로 클래식, XG, GITADORA 전부 동일 시리즈로 보고 있다.
+	</p>
+</section>
+
+<footer class="contents">
+	<div class="footer-col">
+		<div class="footer-label">Project</div>
+		<div class="footer-title">Ride on Rythm</div>
+		<div class="footer-sub">웹 퍼블리싱 기말 프로젝트</div>
+		<div class="footer-sub">2025. 06.</div>
+	</div>
+	<div class="footer-col">
+		<div class="footer-label">Contact</div>
+		<div class="footer-contact">
+			Github: https://github.com/uuuuji034<br>
+			uuuuji034@seoultech.ac.kr<br>
+			Seoul, Republic of Korea
+		</div>
+		<div class="footer-copy">
+			20101019 우지윤<br>
+			© 2026 Ride on Rythm. All rights reserved.
+		</div>
+	</div>
+</footer>
+</body>
+</html>

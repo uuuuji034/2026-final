@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>20101019 우지윤 - CHUNITHM</title>
+	<style>
+		html {font-family: 'inter', sans-serif; scroll-behavior: smooth; color: #F9FFFD;}
+		nav {position: fixed; top: 0; left: 0; width: 100%; z-index: 999; padding-top: 30px; padding-bottom: 80px; background-image: linear-gradient(to bottom, rgba(4,14,32,1) 0%, rgba(4,14,32,0) 100%);}
+		body, h1, h2, p, ul, li {margin: 0; padding: 0;}
+		body {background-color: #040E20; overflow-x: hidden;}
+		
+		.bg-fixed {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url('./img/chunithm_tb.jpg'); background-size: cover; background-position: center; filter: blur(8px); transform: scale(1.05); z-index: -2;}
+		.bg-overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(4, 14, 32, 0.8); z-index: -1;}
+
+		.contents {width: 1100px; margin: auto; position: relative; z-index: 1;}
+		ul {width: 800px;}
+		li {list-style-type: none;}
+		.flex {display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo {position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		.menu a {display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA, 0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active {opacity: 1 !important;}
+		.menu a:hover {opacity: 1;}
+		.logo a {display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF, 0 0 20px #FFFFFF; font-weight: bold; font-size: 3rem;}
+		.nav-arrow {position: fixed; top: 50%; transform: translateY(-50%); font-size: 4rem; color: rgba(255, 255, 255, 0.3); text-decoration: none; z-index: 1000; transition: color 0.3s ease, text-shadow 0.3s ease; padding: 20px;}
+		.nav-arrow:hover {color: #FFFFFF; text-shadow: 0 0 20px #99F8FA;}
+		.nav-prev {left: 30px;}
+		.nav-next {right: 30px;}
+		
+		.info-section {padding-top: 150px; padding-bottom: 50px;}
+		.game-title {font-size: 5rem; font-weight: 600; text-align: center; color: #FFFFFF; text-shadow: 0 0 8px #99F8FA, 0 0 15px #99F8FA; margin-bottom: 70px; letter-spacing: 2px; text-transform: uppercase;}
+		.game-desc {font-size: 1.15rem; line-height: 1.9; color: #d1d5db; margin-bottom: 40px; word-break: keep-all;}
+		
+		.img-wrapper {width: 100%; margin-bottom: 10px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5); background-color: #fff;}
+		.img-wrapper img {width: 100%; display: block;}
+		.img-caption {text-align: center; font-size: 0.9rem; color: #888; margin-bottom: 40px;}
+
+		.video-wrapper {position: relative; width: 100%; padding-bottom: 56.25%; background-color: #d1d5db; margin-bottom: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5);}
+		.video-wrapper iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px;}
+		.placeholder-text {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #333; font-size: 1.2rem;}
+		
+		.video-tooltip {position: absolute; top: 50%; right: -280px; transform: translateY(-50%); width: 230px; background-color: rgba(255, 255, 255, 0.95); color: #040E20; padding: 20px; border-radius: 15px; font-size: 1rem; font-weight: 700; line-height: 1.6; box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 20; word-break: keep-all;}
+		.video-tooltip::before {content: ''; position: absolute; top: 50%; left: -12px; transform: translateY(-50%); border-width: 12px 12px 12px 0; border-style: solid; border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;}
+		.video-wrapper:hover .video-tooltip {opacity: 1; visibility: visible; right: -260px;}
+		
+		/* 영상 우측 팁 배지 */
+		.tip-badge {position: absolute; top: 20px; right: 20px; background-color: rgba(4, 14, 32, 0.85); color: #FFDE59; padding: 10px 18px; border-radius: 30px; font-weight: 800; font-size: 1.1rem; cursor: pointer; z-index: 21; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 222, 89, 0.3); border: 2px solid #FFDE59;}
+		.tip-badge:hover {background-color: #FFDE59; color: #040E20;}
+		.tip-badge:hover + .video-tooltip {opacity: 1; visibility: visible; right: -260px;}
+		
+		footer {color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr; position: relative; z-index: 1;}
+		.footer-col {display: flex; flex-direction: column; gap: 12px;}
+		.footer-label {font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
+		.footer-title {font-size: 15px; font-weight: 700; line-height: 1.5; color: #ffffff;}
+		.footer-sub {font-size: 12px; color: #888; letter-spacing: 0.04rem;}
+		.footer-contact {font-size: 13px; color: #ccc; line-height: 2;}
+		.footer-copy {font-size: 11px; color: #555; margin-top: 8px; letter-spacing: 0.04em;}
+	</style>
+</head>
+<body>
+<div class="bg-fixed"></div>
+<div class="bg-overlay"></div>
+
+<nav>
+	<ul class="contents menu flex">
+		<li><a href="about.html">ABOUT</a></li>
+		<li><a href="online.html">ONLINE</a></li>
+		<li><a href="arcade.html" class="active">ARCADE</a></li>
+	</ul>
+</nav>
+
+<a href="gitadora.html" class="nav-arrow nav-prev">‹</a>
+<a href="taiko.html" class="nav-arrow nav-next">›</a>
+
+<section id="info-section" class="contents info-section">
+	<h1 class="game-title">CHUNITHM</h1>
+	
+	<p class="game-desc">
+		세가에서 개발한 아케이드용 리듬 게임. maimai 시리즈의 개발진이 제작하였다.<br>
+		캐치프레이즈는 '공간을 베는 신감각 음악 게임'이며, 제목인 츄니즘은 '중2병(츄니뵤)와 리듬(리즈무)'을 합친 것.
+	</p>
+
+	<div class="video-wrapper">
+		<iframe src="https://www.youtube-nocookie.com/embed/8KWN6BDuIdA?si=BfQFE8gmkDXzUU3k&amp;start=14" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+		
+		<div class="tip-badge">💡POINT</div>
+		<div class="video-tooltip">영상을 보면 알 수 있듯이 공중에도 판정이 있어 슬라이더만 누르는 것이 아닌 공중 액션도 해야 한다!</div>
+	</div>
+
+	<p class="game-desc">
+		지금까지의 리듬 게임과는 다른 색다른 조작감과 '자아도취감'을 콘셉트로 삼았다.<br>
+		또한 일러스트 캐릭터, 그리고 애니메이션, 에로게, BMS 등 일본 인터넷 서브컬처를 반영한 수록곡 등도 특징이다.
+	</p>
+
+	<div class="img-wrapper" style="margin-bottom: 40px;">
+		<img src="./img/chunithm_song.jpg" alt="Chunithm Tracks">
+	</div>
+
+	<p class="game-desc">
+		방식은 기본적으로 기존의 비트매니아를 비롯한 건반 게임과 유사하지만, 입력 디바이스를 버튼이 아닌 '그라운드 슬라이더'라는<br>
+		독자적인 구조를 채택하여 차별점을 두고 있다.<br><br>
+		그라운드 슬라이더는 외관상으로는 건반과 비슷하나 실제 느낌은 구분감이 없고 아크릴 재질의 터치 스크린을 터치하는 느낌이며,<br>
+		때문에 노트의 크기가 자유자재로 바뀌는 것이 특징이다.<br>
+		또 이를 이용해서 마치 터치 게임과 같은 슬라이드 노트도 구현하였다.
+	</p>
+
+	<div class="img-wrapper">
+		<img src="./img/chunithm_slider.jpg" alt="Chunithm Controller">
+	</div>
+	<p class="img-caption">아래의 분홍색 부분이 슬라이더이다.</p>
+
+	<p class="game-desc">
+		판정은 JUSTICE CRITICAL, JUSTICE, ATTACK, MISS로 나뉘는데, 각각 1000000점을 기준으로 해서<br>
+		총 노트 수로 나눈 점수의 101%, 100%, 50%, 0%를 취득할 수 있다. (이론상 최대치는 1010000점)
+	</p>
+
+	<p class="game-desc">
+		콤보 수 관련 설정은 있지만 최대 콤보수는 점수에 영향을 미치지 않는다.
+	</p>
+
+</section>
+
+<footer class="contents">
+	<div class="footer-col">
+		<div class="footer-label">Project</div>
+		<div class="footer-title">Ride on Rythm</div>
+		<div class="footer-sub">웹 퍼블리싱 기말 프로젝트</div>
+		<div class="footer-sub">2025. 06.</div>
+	</div>
+	<div class="footer-col">
+		<div class="footer-label">Contact</div>
+		<div class="footer-contact">
+			Github: https://github.com/uuuuji034<br>
+			uuuuji034@seoultech.ac.kr<br>
+			Seoul, Republic of Korea
+		</div>
+		<div class="footer-copy">
+			20101019 우지윤<br>
+			© 2026 Ride on Rythm. All rights reserved.
+		</div>
+	</div>
+</footer>
+</body>
+</html>

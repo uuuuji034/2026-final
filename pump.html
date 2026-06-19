@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>20101019 우지윤 - Pump It Up!</title>
+	<style>
+		/* --- [기본 세팅 및 네비게이션 공통 스타일] --- */
+		html{font-family: 'inter', sans-serif; scroll-behavior: smooth; color: #F9FFFD}
+		nav{position: fixed; top: 0; left: 0; width: 100%; z-index: 999; padding-top: 30px; padding-bottom: 80px; background-image: linear-gradient(to bottom, rgba(4,14,32,1) 0%, rgba(4,14,32,0) 100%);}
+		body,h1,h2,p,ul,li{margin:0; padding:0;}
+		body{background-color: #040E20; overflow-x: hidden; /* 가로 스크롤 방지 */}
+		.contents{width: 1100px; margin:auto;}
+		ul{width: 800px;}
+		li{list-style-type: none;}
+		.flex{display: flex; justify-content: center; align-items: center; position: relative; gap: 150px;}
+		.logo{position: absolute; left: 20px; top: 50%; transform: translateY(-50%);}
+		
+		.menu a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #99F8FA,0 0 20px #99F8FA; font-weight: 600; font-size: 1.5rem; opacity: 0.4; transition: opacity 0.3s ease;}
+		.menu a.active {opacity: 1 !important;}
+		.menu a:hover {opacity: 1;}
+		.logo a{display: block; padding: 10px; text-decoration: none; color: #F9FFFD; text-shadow: 0 0 10px #FFFFFF,0 0 20px #FFFFFF; font-weight: bold; font-size: 3rem;}
+
+		/* --- [새로 추가된 좌우 고정 네비게이션 화살표] --- */
+		.nav-arrow {
+			position: fixed;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 4rem;
+			color: rgba(255, 255, 255, 0.3);
+			text-decoration: none;
+			z-index: 1000;
+			transition: color 0.3s ease, text-shadow 0.3s ease;
+			padding: 20px;
+		}
+
+		.nav-arrow:hover {
+			color: #FFFFFF;
+			text-shadow: 0 0 20px #99F8FA;
+		}
+
+		.nav-prev { left: 30px; }
+		.nav-next { right: 30px; }
+
+		/* --- [섹션 1: 펌프 발판 인터페이스 영역] --- */
+		.pad-section {height: 100vh; display: flex; justify-content: center; align-items: center; position: relative;}
+
+		/* 발판 3x3 그리드 배치 (크기 증가) */
+		.pad-grid {display: grid; grid-template-columns: 180px 180px 180px; grid-template-rows: 180px 180px 180px; gap: 20px; z-index: 10;}
+
+		/* 발판 공통 속성 */
+		.pad-btn {
+			width: 100%;
+			height: 100%;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition: transform 0.1s ease, filter 0.2s ease;
+			background-color: rgba(255, 255, 255, 0.05);
+			border: 2px solid rgba(255, 255, 255, 0.2);
+			border-radius: 20px;
+			box-sizing: border-box;
+			overflow: hidden;
+		}
+
+		.pad-btn img {width: 100%; height: 100%; object-fit: cover;}
+
+		.pad-btn:active {transform: scale(0.9); filter: brightness(1.5);}
+
+		/* 3x3 그리드 내 위치 지정 */
+		.pad-tl { grid-column: 1; grid-row: 1; border-color: rgba(255, 0, 0, 0.5); }
+		.pad-tr { grid-column: 3; grid-row: 1; border-color: rgba(255, 0, 0, 0.5); }
+		.pad-c { grid-column: 2; grid-row: 2; border-color: rgba(255, 255, 0, 0.5); box-shadow: 0 0 20px rgba(255, 255, 0, 0.2);}
+		.pad-bl { grid-column: 1; grid-row: 3; border-color: rgba(0, 150, 255, 0.5); }
+		.pad-br { grid-column: 3; grid-row: 3; border-color: rgba(0, 150, 255, 0.5); }
+
+		.pad-empty{visibility: hidden;}
+
+		.press-start-text {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 5rem;
+			font-weight: 700;
+			color: #FFFFFF;
+			text-shadow: 0 0 8px #99F8FA, 0 0 20px #99F8FA;
+			z-index: 20; 
+			pointer-events: none; 
+			animation: blinkAndFade 3s forwards; 
+		}
+
+		@keyframes blinkAndFade {
+			10% { opacity: 1; }
+			25% { opacity: 0; } 
+			40% { opacity: 1; } 
+			65% { opacity: 0; } 
+			100% { opacity: 0; } 
+		}
+
+		/* --- [떨어지는 화살표 노트 애니메이션 속성] --- */
+		@keyframes fallDown {
+			0% { top: -100px; opacity: 1; transform: scale(1); }
+			100% { top: 100vh; opacity: 0.2; transform: scale(0.8); }
+		}
+
+		.falling-note {
+			position: fixed;
+			width: 160px; 
+			height: 160px;
+			pointer-events: none;
+			z-index: 50;
+			animation: fallDown 1.2s linear forwards;
+		}
+
+		.info-section {padding-top: 100px; padding-bottom: 50px;}
+
+		.game-title {
+			font-size: 5rem;
+			font-weight: 600;
+			text-align: center;
+			color: #FFFFFF;
+			text-shadow: 0 0 8px #99F8FA, 0 0 15px #99F8FA;
+			margin-bottom: 70px;
+			letter-spacing: 2px;
+		}
+
+		.game-desc {
+			font-size: 1.15rem;
+			line-height: 1.9;
+			color: #d1d5db;
+			margin-bottom: 40px;
+			word-break: keep-all;
+		}
+
+		.video-wrapper {
+			position: relative;
+			width: 100%;
+			padding-bottom: 56.25%;
+			background-color: #1a2332;
+			margin-bottom: 40px;
+			border-radius: 10px;
+			overflow: hidden;
+			box-shadow: 0 0 20px rgba(0,0,0,0.5);
+		}
+
+		.video-wrapper iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+		.img-wrapper {width: 100%; margin-bottom: 40px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5);}
+		.img-wrapper img {width: 100%; display: block;}
+
+		footer {color: #ffffff; padding: 56px; display: grid; grid-template-columns: 1fr 1fr;}
+		.footer-col {display: flex; flex-direction: column; gap: 12px;}
+		.footer-label {font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 4px;}
+		.footer-title {font-size: 15px; font-weight: 700; line-height: 1.5; color: #ffffff;}
+		.footer-sub {font-size: 12px; color: #888; letter-spacing: 0.04rem;}
+		.footer-contact {font-size: 13px; color: #ccc; line-height: 2;}
+		.footer-copy {font-size: 11px; color: #555; margin-top: 8px; letter-spacing: 0.04em;}
+	</style>
+</head>
+
+<body>
+<nav>
+	<ul class="contents menu flex">
+		<li><a href="about.html">ABOUT</a></li>
+		<li><a href="online.html">ONLINE</a></li>
+		<li><a href="arcade.html" class="active">ARCADE</a></li>
+	</ul>
+</nav>
+<a href="gitadora.html" class="nav-arrow nav-next">›</a>
+
+<!-- 1. 펌프 발판 인터페이스 구역 -->
+<section class="pad-section">
+	
+	<!-- 안내 문구 (깜빡임 효과) -->
+	<div class="press-start-text">Press any button</div>
+
+	<div class="pad-grid">
+		<!-- 왼쪽 위 -->
+		<div class="pad-btn pad-tl" onclick="dropNote('ul')">
+			<img src="./img/pad_ul.jpg" alt="Up Left">
+		</div>
+		<div class="pad-empty"></div>
+		
+		<!-- 오른쪽 위 -->
+		<div class="pad-btn pad-tr" onclick="dropNote('ur')">
+			<img src="./img/pad_ur.jpg" alt="Up Right">
+		</div>
+		
+		<div class="pad-empty"></div>
+		
+		<!-- 중앙 STOMP -->
+		<div class="pad-btn pad-c" onclick="scrollToContent()">
+			<img src="./img/pad_center.jpg" alt="STOMP">
+		</div>
+		
+		<div class="pad-empty"></div>
+		
+		<!-- 왼쪽 아래 -->
+		<div class="pad-btn pad-bl" onclick="dropNote('dl')">
+			<img src="./img/pad_dl.jpg" alt="Down Left">
+		</div>
+		<div class="pad-empty"></div>
+		
+		<!-- 오른쪽 아래 -->
+		<div class="pad-btn pad-br" onclick="dropNote('dr')">
+			<img src="./img/pad_dr.jpg" alt="Down Right">
+		</div>
+	</div>
+</section>
+
+<!-- 2. 게임 정보 콘텐츠 구역 -->
+<section id="info-section" class="contents info-section">
+	<h1 class="game-title">Pump it up!</h1>
+	
+	<p class="game-desc">
+		대한민국의 게임 개발사인 안다미로에서 1999년부터 오락실 용으로 출시하고 있는 댄스 리듬 게임이다.
+	</p>
+
+	<div class="video-wrapper">
+		<iframe src="https://www.youtube.com/embed/QOX91U1sw58?start=11&end=115" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	</div>
+
+	<p class="game-desc">
+		1990년대 말에서 2000년대 초까지 이어진 리듬 게임 붐의 선봉장 역할을 했던 게임이다.<br>
+		1990년대 말에는 펌프만을 가동하는 오락실이 있었으며, 2020년대 들어서는 펌프 스튜디오가 등장했다.<br>
+		또한 펌프 대회가 열리고 펌프 잇 업 과자가 등장하는 등 범국민적 인기를 얻었다.<br>
+		리듬 게임 붐이 사그라들자 한국에서는 시리즈가 끊겼으나, 해외에서 많은 인기를 얻은 후 남미판 펌프 잇 업 THE PREX 3가 한국에 역수입되는 것을 시작으로 한국에서도 다시 시리즈가 이어지고 있다.
+	</p>
+
+	<div class="img-wrapper">
+		<img src="./img/pumpgirl.png">
+	</div>
+
+	<p class="game-desc">
+		입문 장벽이 낮은 태고의 달인 시리즈와 함께 일반인들이 오락실에서 제일 많이하는 리듬 게임이다.<br> 
+		그래서 영화관에 붙어 있거나 일반인을 대상으로 하는 오락실에도 대기가 걸리거나 몇몇 무리가 일정 횟수를 연속해서 타는 일도 많다.<br><br>
+		한편 유명세가 오래된, 소위 '성지'로 불리는 게임센터들에서는 대체로 발판이 매니아들을 위해 잘 튜닝되어 있기 때문에<br>
+		일반인보다는 매니아 유저들이 많이 찾는다.
+	</p>
+</section>
+
+<script>
+	// 1. 중앙 STOMP 버튼 클릭 시 하단 스크롤
+	function scrollToContent() {
+		const infoSection = document.getElementById('info-section');
+		infoSection.scrollIntoView({ behavior: 'smooth' });
+	}
+
+	// 2. 방향에 맞는 대각선 화살표가 허공에서 떨어짐
+	function dropNote(type) {
+		const note = document.createElement('div');
+		note.className = 'falling-note';
+		
+		if (type === 'ul') {
+			note.style.left = '20vw';
+			note.innerHTML = '<svg viewBox="0 0 100 100" style="width: 100%; height: 100%; transform: rotate(-45deg);"><polygon points="50,10 90,50 70,50 70,90 30,90 30,50 10,50" fill="#FF3366" stroke="#fff" stroke-width="3"/></svg>';
+		} else if (type === 'ur') {
+			note.style.right = '20vw';
+			note.innerHTML = '<svg viewBox="0 0 100 100" style="width: 100%; height: 100%; transform: rotate(45deg);"><polygon points="50,10 90,50 70,50 70,90 30,90 30,50 10,50" fill="#FF3366" stroke="#fff" stroke-width="3"/></svg>';
+		} else if (type === 'dl') {
+			note.style.left = '6vw';
+			note.innerHTML = '<svg viewBox="0 0 100 100" style="width: 100%; height: 100%; transform: rotate(-135deg);"><polygon points="50,10 90,50 70,50 70,90 30,90 30,50 10,50" fill="#33CCFF" stroke="#fff" stroke-width="3"/></svg>';
+		} else if (type === 'dr') {
+			note.style.right = '6vw';
+			note.innerHTML = '<svg viewBox="0 0 100 100" style="width: 100%; height: 100%; transform: rotate(135deg);"><polygon points="50,10 90,50 70,50 70,90 30,90 30,50 10,50" fill="#33CCFF" stroke="#fff" stroke-width="3"/></svg>';
+		}
+
+		document.body.appendChild(note);
+
+		// 애니메이션 후 삭제
+		setTimeout(function() {
+			note.remove();
+		}, 1200);
+	}
+</script>
+
+<footer class="contents">
+	<div class="footer-col">
+		<div class="footer-label">Project</div>
+		<div class="footer-title">Ride on Rythm</div>
+		<div class="footer-sub">웹 퍼블리싱 기말 프로젝트</div>
+		<div class="footer-sub">2025. 06.</div>
+	</div>
+	<div class="footer-col">
+		<div class="footer-label">Contact</div>
+		<div class="footer-contact">
+			Github: https://github.com/uuuuji034<br>
+			uuuuji034@seoultech.ac.kr<br>
+			Seoul, Republic of Korea
+		</div>
+		<div class="footer-copy">
+			20101019 우지윤<br>
+			© 2026 Ride on Rythm. All rights reserved.
+		</div>
+	</div>
+</footer>
+</body>
+</html>
